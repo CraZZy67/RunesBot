@@ -1,10 +1,13 @@
 from asyncio import run
 
-from src.create_bot import bot, dp
+import src
+
+
+src.dp.include_routers(src.start_router)
 
 
 async def main():
-    await dp.start_polling(bot)
+    await src.dp.start_polling(src.bot)
 
 if __name__ == "__main__":
     print("Бот запущен!")
