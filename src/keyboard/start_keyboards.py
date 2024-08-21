@@ -30,3 +30,10 @@ def free_layout_keyboard():
     builder = InlineKeyboardBuilder()
     builder.button(text="🔮Получить рунический расклад", url="https://t.me/venisbanny")
     return builder.as_markup()
+
+
+def back_keyboard():
+    back_kb = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="👈Обратно")]], resize_keyboard=True,
+                                  one_time_keyboard=True)
+
+    return back_kb

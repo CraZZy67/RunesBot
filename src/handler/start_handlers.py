@@ -2,9 +2,10 @@ from aiogram import Router, F
 from aiogram.filters import CommandStart
 from aiogram.types import Message, FSInputFile
 from asyncio import sleep
+from aiogram.fsm.context import FSMContext
 
 from src import keyboard
-from src.auxiliary import Reader
+from src.auxiliary import Reader, UserInfo
 
 start_router = Router(name=__name__)
 
@@ -41,3 +42,31 @@ async def layout_handler(message: Message):
     await sleep(0.5)
     await message.answer(text=unique_texts[0], reply_markup=keyboard.free_layout_keyboard())
 
+
+@start_router.message(F.text == "🤩Получить бесплатный расклад🤩")
+async def free_layout_handler(message: Message, state: FSMContext):
+    await state.set_state(UserInfo.name)
+    await message.answer(text="Отлично! Для начала, напиши пожалуйста свое Имя 👇",
+                         reply_markup=keyboard.back_keyboard())
+
+
+@start_router.message(F.text == "👈Обратно")
+async def cancel_handler(message: Message, state: FSMContext):
+    current_state = await state.get_state()
+    if current_state is None:
+        return
+    await state.clear()
+    await message.answer(text=Reader.read_greeting(), reply_markup=keyboard.main_menu_keyboard())
+
+
+@start_router.message(UserInfo.name)
+async def catch_user_name(message: Message, state: FSMContext):
+    await state.update_data(name=message.text)
+    await state.set_state(UserInfo.date)
+    await message.answer(text="Супер! День твоего рождения в формате ДД.ММ.ГГГГ 👇")
+
+
+@start_router.message(UserInfo.date)
+async def catch_date(message: Message, state: FSMContext):
+    await state.update_data(date=message.text)
+    await message.answer(text=Reader.read_congratulation(), reply_markup=keyboard.back_keyboard())

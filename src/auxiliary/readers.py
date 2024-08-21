@@ -37,3 +37,13 @@ class Reader:
             unique_space_texts.append("".join(f.readlines()))
 
         return unique_space_texts
+
+    @classmethod
+    def read_greeting(cls):
+        with open("text/greeting.txt", "r", encoding="utf-8") as f:
+            return "".join(f.readlines())
+
+    @classmethod
+    def read_congratulation(cls):
+        with open("text/congratulation.txt", "r", encoding="utf-8") as f:
+            return "".join(f.readlines())
