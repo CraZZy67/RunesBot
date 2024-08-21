@@ -4,11 +4,11 @@ from aiogram.types import FSInputFile
 class Reader:
 
     @classmethod
-    def read_combination_txt(cls) -> list:
+    def read_combinations_txt(cls) -> list:
         combination_space_texts = list()
 
         for i in range(1, 5):
-            with open(f"text/combination_{i}.txt", "r", encoding="utf-8") as f:
+            with open(f"text/combination/combination_{i}.txt", "r", encoding="utf-8") as f:
                 combination_space_texts.append("".join(f.readlines()))
 
         with open("text/prepare.txt", "r", encoding="utf-8") as f:
@@ -19,7 +19,7 @@ class Reader:
         return combination_space_texts
 
     @classmethod
-    def read_combination_image(cls) -> list:
+    def read_combinations_image(cls) -> list:
         combination_space_image = list()
 
         for i in range(1, 5):

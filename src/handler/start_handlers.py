@@ -20,8 +20,8 @@ async def start_command_handler(message: Message):
 
 @start_router.message(F.text == "⚡️ Расклад ⚡️")
 async def layout_handler(message: Message):
-    texts_layout = Reader.read_combination_txt()
-    images_layout = Reader.read_combination_image()
+    texts_layout = Reader.read_combinations_txt()
+    images_layout = Reader.read_combinations_image()
 
     await message.answer(text=texts_layout[4])
     await sleep(3.0)
