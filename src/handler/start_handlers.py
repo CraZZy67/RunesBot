@@ -31,3 +31,13 @@ async def layout_handler(message: Message):
         await sleep(0.5)
 
     await message.answer(text=texts_layout[5], reply_markup=keyboard.combination_choice_keyboard())
+
+
+@start_router.message(F.text.in_(["Комбинация №1", "Комбинация №2", "Комбинация №3", "Комбинация №4"]))
+async def layout_handler(message: Message):
+    unique_texts = Reader.read_unique_combination_texts(number=message.text[-1])
+
+    await message.answer(text=unique_texts[1], reply_markup=keyboard.main_menu_keyboard())
+    await sleep(0.5)
+    await message.answer(text=unique_texts[0], reply_markup=keyboard.free_layout_keyboard())
+
