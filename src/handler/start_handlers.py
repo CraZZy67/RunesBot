@@ -4,7 +4,8 @@ from aiogram.types import Message, FSInputFile
 from asyncio import sleep
 from aiogram.fsm.context import FSMContext
 
-from src import keyboard
+import src
+from src.keyboard import *
 from src.auxiliary import Reader, UserInfo
 
 start_router = Router(name=__name__)
@@ -16,7 +17,8 @@ async def start_command_handler(message: Message):
         start_text = "".join(f.readlines())
 
     photo = FSInputFile(path="image/subconscious.jpg")
-    await message.answer_photo(photo, caption=start_text, reply_markup=keyboard.layout_keyboard())
+    await message.answer_photo(photo, caption=start_text, reply_markup=layout_keyboard())
+    src.main_logger.info("Обработана команда /start")
 
 
 @start_router.message(F.text == "⚡️ Расклад ⚡️")
@@ -31,23 +33,28 @@ async def layout_handler(message: Message):
         await message.answer_photo(photo=images_layout[i], caption=texts_layout[i])
         await sleep(0.5)
 
-    await message.answer(text=texts_layout[5], reply_markup=keyboard.combination_choice_keyboard())
+    await message.answer(text=texts_layout[5], reply_markup=combination_choice_keyboard())
+    src.main_logger.info(f"Четыре комбинации отправлены пользователю {message.from_user.id}")
 
 
 @start_router.message(F.text.in_(["Комбинация №1", "Комбинация №2", "Комбинация №3", "Комбинация №4"]))
 async def layout_handler(message: Message):
     unique_texts = Reader.read_unique_combination_texts(number=message.text[-1])
 
-    await message.answer(text=unique_texts[1], reply_markup=keyboard.main_menu_keyboard())
+    await message.answer(text=unique_texts[1], reply_markup=main_menu_keyboard())
     await sleep(0.5)
-    await message.answer(text=unique_texts[0], reply_markup=keyboard.free_layout_keyboard())
+    await message.answer(text=unique_texts[0], reply_markup=free_layout_keyboard())
+
+    src.main_logger.info(f"Пользователь {message.from_user.id} выбрал {message.text}")
 
 
 @start_router.message(F.text == "🤩Получить бесплатный расклад🤩")
 async def free_layout_handler(message: Message, state: FSMContext):
     await state.set_state(UserInfo.name)
     await message.answer(text="Отлично! Для начала, напиши пожалуйста свое Имя 👇",
-                         reply_markup=keyboard.back_keyboard())
+                         reply_markup=back_keyboard())
+
+    src.main_logger.info("Обработана кнопка получения бесплатного расклада")
 
 
 @start_router.message(F.text == "👈Обратно")
@@ -56,7 +63,7 @@ async def cancel_handler(message: Message, state: FSMContext):
     if current_state is None:
         return
     await state.clear()
-    await message.answer(text=Reader.read_greeting(), reply_markup=keyboard.main_menu_keyboard())
+    await message.answer(text=Reader.read_greeting(), reply_markup=main_menu_keyboard())
 
 
 @start_router.message(UserInfo.name)
@@ -69,4 +76,4 @@ async def catch_user_name(message: Message, state: FSMContext):
 @start_router.message(UserInfo.date)
 async def catch_date(message: Message, state: FSMContext):
     await state.update_data(date=message.text)
-    await message.answer(text=Reader.read_congratulation(), reply_markup=keyboard.back_keyboard())
+    await message.answer(text=Reader.read_congratulation(), reply_markup=back_keyboard())

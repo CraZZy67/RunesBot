@@ -10,5 +10,5 @@ async def main():
     await src.dp.start_polling(src.bot)
 
 if __name__ == "__main__":
-    print("Бот запущен!")
+    src.main_logger.info("Бот запущен!")
     run(main())
