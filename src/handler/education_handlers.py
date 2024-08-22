@@ -1,6 +1,7 @@
 from aiogram import Router, F
 from aiogram.types import Message, CallbackQuery
 
+import src
 from src.auxiliary import EducationReader
 from src.keyboard import *
 
@@ -11,6 +12,7 @@ education_router = Router()
 async def education_runes_handler(message: Message):
     content_page = EducationReader.read_page_1()
     await message.answer_photo(photo=content_page[1], caption=content_page[0], reply_markup=next_education_keyboard())
+    src.main_logger.info(f"Пользователь {message.from_user.id} открыл вкладку обучения")
 
 
 @education_router.callback_query(F.data.in_(["next", "variation"]))

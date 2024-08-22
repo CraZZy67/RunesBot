@@ -61,7 +61,6 @@ class EducationReader:
             content_page_1.append("".join(f.readlines()))
 
         content_page_1.append(FSInputFile(path="image/education/page_1.jpg"))
-
         return content_page_1
 
     @classmethod
@@ -82,7 +81,6 @@ class EducationReader:
                 continue
 
             images.append(FSInputFile(path=f"image/education/{i}"))
-
         images.insert(4, None)
 
         for i in education_texts:
@@ -91,5 +89,4 @@ class EducationReader:
 
             with open(f"text/education/{i}", "r", encoding="utf-8") as f:
                 texts.append("".join(f.readlines()))
-
         return [texts, images]
