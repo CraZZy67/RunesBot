@@ -1,5 +1,7 @@
 from aiogram.types import FSInputFile
 
+import os
+
 
 class Reader:
 
@@ -47,3 +49,47 @@ class Reader:
     def read_congratulation(cls):
         with open("text/congratulation.txt", "r", encoding="utf-8") as f:
             return "".join(f.readlines())
+
+
+class EducationReader:
+
+    @classmethod
+    def read_page_1(cls):
+        content_page_1 = list()
+
+        with open("text/education/page_1.txt", "r", encoding="utf-8") as f:
+            content_page_1.append("".join(f.readlines()))
+
+        content_page_1.append(FSInputFile(path="image/education/page_1.jpg"))
+
+        return content_page_1
+
+    @classmethod
+    def read_page_2(cls):
+        with open("text/education/page_2.txt", "r", encoding="utf-8") as f:
+            return "".join(f.readlines())
+
+    @classmethod
+    def read_variation_content(cls):
+        education_images = os.listdir("image\\education")
+        education_texts = os.listdir("text\\education")
+
+        images = list()
+        texts = list()
+
+        for i in education_images:
+            if i == "page_1.jpg":
+                continue
+
+            images.append(FSInputFile(path=f"image/education/{i}"))
+
+        images.insert(4, None)
+
+        for i in education_texts:
+            if i == "page_1.txt" or i == "page_2.txt":
+                continue
+
+            with open(f"text/education/{i}", "r", encoding="utf-8") as f:
+                texts.append("".join(f.readlines()))
+
+        return [texts, images]
