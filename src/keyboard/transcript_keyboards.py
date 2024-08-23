@@ -33,3 +33,9 @@ def delete_message_keyboard():
     builder = InlineKeyboardBuilder()
     builder.button(text="🗑 Удалить сообщение")
     return builder.as_markup()
+
+
+def cancel_enter():
+    builder = InlineKeyboardBuilder()
+    builder.button(text="⛔️ Отмена ввода")
+    return builder.as_markup()
