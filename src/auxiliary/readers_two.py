@@ -40,10 +40,8 @@ class AboutReader:
 
     @classmethod
     def read_variation(cls):
-        text = str()
-
         with open("text/about/variation_runes.txt", "r", encoding="utf-8") as f:
-            text.join(f.readlines())
+            text = "".join(f.readlines())
 
         image = FSInputFile(path=f"image/about/variation_runes.jpg")
         return [text, image]
@@ -69,17 +67,15 @@ class AboutReader:
 
         hours, remainder = divmod(time_until_midnight.seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
-        return f"{hours} часа {minutes} минуты."
+        return f" {hours} часа {minutes} минуты."
 
     @classmethod
     def read_day_runes(cls):
         day = datetime.now().isoformat()[8:10].replace("0", "")
         file = AboutReader.create_dict()[day]
 
-        text = str()
-
         with open(f"text/about/day_rune/{file}", "r", encoding="utf-8") as f:
-            text.join(f.readlines())
+            text = "".join(f.readlines())
 
         image = FSInputFile(path=f"image/about/day_rune.jpg")
         text = text + AboutReader.get_difference()

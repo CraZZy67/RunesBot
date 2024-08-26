@@ -8,7 +8,7 @@ def about_menu_keyboard():
         [KeyboardButton(text="🧿 Какие виды рун бывают?"), KeyboardButton(text="🧿 Какая руна символизирует здоровье?")],
         [KeyboardButton(text="🧿 Что можно увидеть на рунах?"), KeyboardButton(text="🧿 Какая разница между рунами и Таро?")],
         [KeyboardButton(text="🧿 Что означает пустая руна в раскладе?")],
-        [KeyboardButton(text="👈Обратно")]], resize_keyboard=True)
+        [KeyboardButton(text="👈 Обратно")]], resize_keyboard=True)
 
     return about_menu_kb
 

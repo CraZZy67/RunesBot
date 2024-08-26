@@ -3,7 +3,7 @@ from asyncio import run
 import src
 
 
-src.dp.include_routers(src.start_router, src.education_router, src.transcript_router)
+src.dp.include_routers(src.start_router, src.education_router, src.transcript_router, src.about_router)
 
 
 async def main():
