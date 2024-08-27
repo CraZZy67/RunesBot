@@ -8,3 +8,8 @@ class UserInfo(StatesGroup):
 
 class Search(StatesGroup):
     rune_name = State()
+
+
+class DataBase(StatesGroup):
+    text = State()
+    image = State()

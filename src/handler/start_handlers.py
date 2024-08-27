@@ -6,7 +6,7 @@ from aiogram.fsm.context import FSMContext
 
 import src
 from src.keyboard import *
-from src.auxiliary import Reader, UserInfo
+from src.auxiliary import Reader, UserInfo, add_user
 
 start_router = Router(name=__name__)
 
@@ -18,6 +18,7 @@ async def start_command_handler(message: Message):
 
     photo = FSInputFile(path="image/subconscious.jpg")
     await message.answer_photo(photo, caption=start_text, reply_markup=layout_keyboard())
+    add_user(str(message.from_user.id))
     src.main_logger.info("Обработана команда /start")
 
 
