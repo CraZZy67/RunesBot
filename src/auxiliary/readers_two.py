@@ -7,8 +7,10 @@ from datetime import datetime, timedelta
 class TranscriptReader:
     @classmethod
     def read_pages_tr(cls, number: str):
-        page_images = os.listdir(f"image\\transcript\\page_{number}")
-        page_texts = os.listdir(f"text\\transcript\\page_{number}")
+        page_images = os.listdir(f"image/transcript/page_{number}")
+        page_texts = os.listdir(f"text/transcript/page_{number}")
+        page_texts.sort()
+        page_images.sort()
 
         images = list()
         texts = list()
@@ -26,7 +28,8 @@ class TranscriptReader:
 class AboutReader:
     @classmethod
     def read_about_runes(cls):
-        files = os.listdir("text\\about")
+        files = os.listdir("text/about")
+        files.sort()
 
         texts = list()
 
@@ -48,7 +51,9 @@ class AboutReader:
 
     @staticmethod
     def create_dict():
-        files = os.listdir(f"text\\about\\day_rune")
+        files = os.listdir(f"text/about/day_rune")
+        files.sort()
+
         files += files
         files.append(files[0])
 

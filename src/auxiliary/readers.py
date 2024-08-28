@@ -70,8 +70,10 @@ class EducationReader:
 
     @classmethod
     def read_variation_content(cls):
-        education_images = os.listdir("image\\education")
-        education_texts = os.listdir("text\\education")
+        education_images = os.listdir("image/education")
+        education_texts = os.listdir("text/education")
+        education_texts.sort()
+        education_images.sort()
 
         images = list()
         texts = list()
