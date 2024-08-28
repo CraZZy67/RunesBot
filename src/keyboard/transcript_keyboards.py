@@ -31,7 +31,7 @@ def dynamic_keyboard_transcript(page: int):
 
 def delete_message_keyboard():
     builder = InlineKeyboardBuilder()
-    builder.button(text="🗑 Удалить сообщение", callback_data="delete_message")
+    builder.button(text="Назад", callback_data="delete_message")
     return builder.as_markup()
 
 

@@ -27,7 +27,7 @@ def check_added(id_: int):
         reader.__next__()
 
         for i in reader:
-            if id_ == int(i[2]):
+            if id_ == int(i[0]):
                 return False
 
     return True

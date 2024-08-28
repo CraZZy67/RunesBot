@@ -4,7 +4,7 @@ import src
 
 
 src.dp.include_routers(src.start_router, src.education_router, src.transcript_router, src.about_router,
-                       src.router_for_db)
+                       src.router_for_db, src.username_router)
 
 
 async def main():

@@ -1,5 +1,7 @@
 from aiogram.utils.keyboard import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardBuilder
 
+import re
+
 
 def layout_keyboard():
     start_keyboard = ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text="⚡️ Расклад ⚡️")]], resize_keyboard=True)
@@ -28,7 +30,13 @@ def main_menu_keyboard():
 
 def free_layout_keyboard():
     builder = InlineKeyboardBuilder()
-    builder.button(text="🔮Получить рунический расклад", url="https://t.me/venisbanny")
+
+    pattern = r'@(\w+)'
+    with open("text/free_layout.txt", "r", encoding="utf-8") as f:
+        text = "".join(f.readlines())
+        match = re.search(pattern, text)
+
+    builder.button(text="🔮Получить рунический расклад", url=f"https://t.me/{match.group(0)[1:]}")
     return builder.as_markup()
 
 
