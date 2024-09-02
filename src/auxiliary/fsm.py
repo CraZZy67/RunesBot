@@ -24,7 +24,7 @@ class ChangeUsername(StatesGroup):
         with open("text/free_layout.txt", "r", encoding="utf-8") as f:
             old_text = "".join(f.readlines())
         with open("text/free_layout.txt", "w", encoding="utf-8") as f:
-            if old_value in old_text:
+            if old_value in old_text and old_value[0] == "@":
                 new_text = old_text.replace(old_value, new_value)
                 f.write(new_text)
             else:
@@ -33,7 +33,7 @@ class ChangeUsername(StatesGroup):
         with open("text/congratulation.txt", "r", encoding="utf-8") as f:
             old_text = "".join(f.readlines())
         with open("text/congratulation.txt", "w", encoding="utf-8") as f:
-            if old_value in old_text:
+            if old_value in old_text and old_value[0] == "@":
                 new_text = old_text.replace(old_value, new_value)
                 f.write(new_text)
             else:
